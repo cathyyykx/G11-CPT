@@ -24,7 +24,8 @@ def setup():
             main_music.pause()
     except:
         start_game()
-
+        
+    
     
 def draw():
     global time, main_music, home_music
@@ -50,9 +51,12 @@ def draw():
             rect(0, 0, 10, height)
             rect(width - 10, 0, 10, height)
             
-            snake_move()
-            eat_apple()
-            check_if_dead()
+            try:
+                snake_move()
+                eat_apple()
+                check_if_dead()
+            except SystemExit:
+                pass
         
 def start_game():
     global applex, appley, snakesize, time, angle, apple, apple_cood
@@ -71,7 +75,9 @@ def start_game():
     time = 0
     angle = 0
     apple = 0
+    stop_game = False
     re_cycle = True
+
     
 def snake_move():
     for i in range(snakesize, 0, -1):
@@ -120,7 +126,7 @@ def check_if_dead():
         if headx[1] == headx[i] and heady[1] == heady[i]: # eat itself
             home_music.play()
             main_music.pause()
-    
+            
             background(dead_bg)
             noFill() 
             rect(120, 160, 400, 160) 
@@ -135,6 +141,7 @@ def check_if_dead():
         elif headx[1] >= (width - 10) or heady[1] >= (height - 10) or headx[1] <= 0 or heady[1] <= 0:
             home_music.play()
             main_music.pause()
+            
             background(dead_bg)
             noFill() 
             rect(120, 160, 400, 160) 
